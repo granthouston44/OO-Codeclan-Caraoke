@@ -23,4 +23,9 @@ def test_can_get_fav_song
   assert_equal("Shoot to thrill", @person1.fav_song)
 end
 
+def test_spend_money
+  expected = @person1.spend_money(10)
+  assert_equal(40, expected)
+end
+
 end
