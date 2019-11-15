@@ -23,10 +23,4 @@ def test_can_get_fav_song
   assert_equal("Shoot to thrill", @person1.fav_song)
 end
 
-
-# def test_can_get_fav_song
-#   expected = @person1.thats_a_tune(room)
-#   assert_equal("YAAAASSSS", expected)
-# end
-
 end
