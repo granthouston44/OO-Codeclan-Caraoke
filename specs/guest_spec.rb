@@ -1,6 +1,7 @@
 require('minitest/autorun')
 require('minitest/reporters')
 require_relative('../guest')
+require_relative('../room')
 
 MiniTest::Reporters.use! MiniTest::Reporters::SpecReporter.new
 
@@ -9,6 +10,9 @@ class TestGuest < MiniTest::Test
 def setup
   @person1 = Guest.new("Grant", 50, "Shoot to thrill")
   @person2 = Guest.new("Ailsa", 50, "Ocean Avenue")
+
+  @room1 = Room.new(1, @playlist1)
+  @room2 = Room.new(2, @playlist2)
 end
 
 def test_can_get_name
@@ -24,8 +28,14 @@ def test_can_get_fav_song
 end
 
 def test_spend_money
-  expected = @person1.spend_money(10)
-  assert_equal(40, expected)
+  @person1.spend_money(10)
+  assert_equal(40, @person1.wallet)
+end
+
+def test_pay_entry
+  @person1.pay_entry(@room1)
+  assert_equal(40, @person1.wallet)
+  assert_equal(10, @room1.bill)
 end
 
 end

@@ -63,10 +63,7 @@ def test_add_song_to_playlist
   assert_equal(3, @playlist2.size)
 end
 
-def test_take_money
-  @room1.take_money(@person1)
-  assert_equal(40, @person1.wallet)
-end
+
 # def test_can_get_fav_song
 #     expected = @person1.thats_a_tune(@room1)
 #   assert_equal("YAAAASSSS", expected)
