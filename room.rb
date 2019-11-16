@@ -46,9 +46,14 @@ class Room
   def check_out(person)
     remove_guest(person)
   end
-  # def thats_a_tune(room)
-  #   @playlist.find {|playlist| playlist.title == room.playlist}
-  #
-  # end
+
+  def thats_a_tune(person)
+    fav_song = @playlist.find {|playlist| playlist.title == person.fav_song}
+    if fav_song != nil
+      "YAAAASSSS"
+    else
+      return "Sorry don't have that song"
+    end
+  end
 
 end

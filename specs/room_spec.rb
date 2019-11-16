@@ -132,9 +132,13 @@ class TestRoom < MiniTest::Test
     assert_equal(10, @room1.bill)
   end
 
-  # def test_can_get_fav_song
-  #     expected = @person1.thats_a_tune(@room1)
-  #   assert_equal("YAAAASSSS", expected)
-  # end
+  def test_can_get_fav_song
+    expected = @room1.thats_a_tune(@person2)
+    assert_equal("YAAAASSSS", expected)
+  end
 
+  def test_dont_have_fav_song
+    expected = @room1.thats_a_tune(@person3)
+    assert_equal("Sorry don't have that song", expected)
+  end
 end
