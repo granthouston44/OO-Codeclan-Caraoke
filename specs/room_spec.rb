@@ -119,7 +119,19 @@ class TestRoom < MiniTest::Test
     assert_equal([@person2,@person3,@person4,@person5,@person6,@person7,@person8,@person9,@person10,@person11], @room1.guests)
   end
 
-  
+  def test_pay_entry
+    @room1.pay_entry(@person1)
+    assert_equal(40, @person1.wallet)
+    assert_equal(10, @room1.bill)
+  end
+
+  def test_pay_entry_when_checking_in
+    @room1.check_in(@person1)
+    assert_equal(1, @room1.guest_count)
+    assert_equal(40, @person1.wallet)
+    assert_equal(10, @room1.bill)
+  end
+
   # def test_can_get_fav_song
   #     expected = @person1.thats_a_tune(@room1)
   #   assert_equal("YAAAASSSS", expected)

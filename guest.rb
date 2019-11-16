@@ -12,9 +12,5 @@ def spend_money(amount)
   @wallet -= amount
 end
 
-def pay_entry(room)
-  spend_money(room.entry_fee)
-  room.bill += room.entry_fee
-end
 
 end

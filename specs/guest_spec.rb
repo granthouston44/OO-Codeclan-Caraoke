@@ -32,10 +32,5 @@ def test_spend_money
   assert_equal(40, @person1.wallet)
 end
 
-def test_pay_entry
-  @person1.pay_entry(@room1)
-  assert_equal(40, @person1.wallet)
-  assert_equal(10, @room1.bill)
-end
 
 end

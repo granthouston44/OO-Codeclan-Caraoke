@@ -29,11 +29,17 @@ class Room
     @guests.delete(person)
   end
 
+  def pay_entry(person)
+    person.spend_money(@entry_fee)
+    @bill += @entry_fee
+  end
+
   def check_in(person)
     if guest_count >= capacity
       return p "Sorry, the room is full"
     else
       add_guest(person)
+      pay_entry(person)
     end
   end
 
