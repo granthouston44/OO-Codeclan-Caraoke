@@ -30,7 +30,7 @@ class Room
   end
 
   def pay_entry(person)
-    person.spend_money(@entry_fee)
+    person.pay_fee(@entry_fee)
     @bill += @entry_fee
   end
 

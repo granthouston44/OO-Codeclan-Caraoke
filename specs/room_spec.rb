@@ -3,6 +3,9 @@ require('minitest/reporters')
 require_relative('../room')
 require_relative('../guest')
 require_relative('../songs')
+require_relative('../drink')
+require_relative('../bar')
+require_relative('../food')
 
 
 
@@ -23,18 +26,24 @@ class TestRoom < MiniTest::Test
     @playlist1 = [@track1, @track2, @track3]
     @playlist2 = [@track4, @track5]
 
-    @person1 = Guest.new("Grant", 50, "Shoot to thrill")
-    @person2 = Guest.new("Ailsa", 50, "Ocean Avenue")
-    @person3 = Guest.new("Alan", 50, "Whole lotta Rosie")
-    @person4 = Guest.new("Chris", 50, "Beelzeboss")
-    @person5 = Guest.new("Cammy", 50, "Baggy Trousers")
-    @person6 = Guest.new("Scott", 50, "Feeling This")
-    @person7 = Guest.new("Steph", 50, "Rollercoaster")
-    @person8 = Guest.new("Alex", 50, "If your dad doesn't have a beard, you've got 2 mums")
-    @person9 = Guest.new("Jack", 50, "Got me a beard")
-    @person10 = Guest.new("Yasmin", 50, "Save it for the bedroom")
-    @person11 = Guest.new("Caithlyn", 50, "One Love")
+    @person1 = Guest.new("Grant", 50, "Shoot to thrill", 18)
+    @person2 = Guest.new("Ailsa", 50, "Ocean Avenue", 18)
+    @person3 = Guest.new("Alan", 50, "Whole lotta Rosie", 18)
+    @person4 = Guest.new("Chris", 50, "Beelzeboss", 18)
+    @person5 = Guest.new("Cammy", 50, "Baggy Trousers", 18)
+    @person6 = Guest.new("Scott", 50, "Feeling This", 18)
+    @person7 = Guest.new("Steph", 50, "Rollercoaster", 18)
+    @person8 = Guest.new("Alex", 50, "If your dad doesn't have a beard, you've got 2 mums", 18)
+    @person9 = Guest.new("Jack", 50, "Got me a beard", 18)
+    @person10 = Guest.new("Yasmin", 50, "Save it for the bedroom", 18)
+    @person11 = Guest.new("Caithlyn", 50, "One Love", 18)
 
+    @drink1 = Drink.new("Tennets", 3, 1)
+    @drink2 = Drink.new("Strongbow", 4, 1.5)
+    @drink3 = Drink.new("Buckie", 6, 4)
+    @drinks = [@drink1, @drink2, @drink3]
+
+    @bar = BarTab.new(@drinks)
 
     @room1 = Room.new(1, @playlist1)
     @room2 = Room.new(2, @playlist2)
@@ -70,16 +79,16 @@ class TestRoom < MiniTest::Test
     assert_equal(3, @playlist2.size)
   end
 
-  def test_guest_count_starts_0
+  def test_person_count_starts_0
     assert_equal(0, @room1.guest_count)
   end
 
-  def test_add_guest
+  def test_add_person
     @room1.add_guest(@person1)
     assert_equal(1, @room1.guest_count)
   end
 
-  def test_remove_guest
+  def test_remove_person
     @room1.add_guest(@person1)
     @room1.add_guest(@person2)
     @room1.remove_guest(@person1)
@@ -141,4 +150,26 @@ class TestRoom < MiniTest::Test
     expected = @room1.thats_a_tune(@person3)
     assert_equal("Sorry don't have that song", expected)
   end
+
+  def test_chuck_customer_out_if_too_drunk
+    @room1.check_in(@person1)
+    @room1.check_in(@person2)
+    @bar.service(@person1, @drink3, @room1)
+    @bar.service(@person1, @drink3, @room1)
+    @bar.service(@person1, @drink3, @room1)
+    @bar.service(@person1, @drink3, @room1)
+    assert_equal(3, @person1.drink_count)
+    assert_equal(22, @person1.wallet)
+    assert_equal(2, @bar.stock_count)
+    assert_equal(38, @room1.bill)
+    assert_equal(12, @person1.drunk_level)
+    assert_equal(1, @room1.guest_count)
+  end
+
+
+
+
+
+
+
 end
